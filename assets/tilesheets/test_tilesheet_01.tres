@@ -4,11 +4,11 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ky45h"]
 texture = ExtResource("1_gadb1")
-texture_region_size = Vector2i(32, 32)
+texture_region_size = Vector2i(32, 40)
 0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -8)
+0:0/0/texture_origin = Vector2i(0, -12)
 1:0/0 = 0
-1:0/0/texture_origin = Vector2i(0, -8)
+1:0/0/texture_origin = Vector2i(0, -12)
 
 [resource]
 tile_shape = 1
