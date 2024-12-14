@@ -7,11 +7,9 @@
 [node name="Main" type="Node2D"]
 
 [node name="Map" type="Node2D" parent="."]
-position = Vector2(-16, -8)
 script = ExtResource("1_3mi4c")
-width = 16.0
-height = 16.0
-metadata/_edit_lock_ = true
+width = 16
+height = 16
 
 [node name="Mountain" type="Node2D" parent="Map"]
 script = ExtResource("1_t2ah5")
@@ -63,7 +61,3 @@ tile_set = ExtResource("1_p40ks")
 
 [node name="MountainLayer16" type="TileMapLayer" parent="Map/Mountain"]
 tile_set = ExtResource("1_p40ks")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -80)
-zoom = Vector2(2, 2)

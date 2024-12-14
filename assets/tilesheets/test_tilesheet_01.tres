@@ -1,18 +1,28 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://becqcnk0d155a"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://becqcnk0d155a"]
 
-[ext_resource type="Texture2D" uid="uid://fo26pgc3gdew" path="res://assets/sprites/test_tile_01.png" id="1_gadb1"]
+[ext_resource type="Texture2D" uid="uid://lb30u23t01p8" path="res://assets/sprites/tilesheets/tiles_bare.png" id="1_0ylcf"]
+[ext_resource type="Texture2D" uid="uid://2yx3wd84yk2l" path="res://assets/sprites/tilesheets/tiles_trees.png" id="2_edqqj"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ky45h"]
-texture = ExtResource("1_gadb1")
-texture_region_size = Vector2i(32, 32)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4e8gv"]
+texture = ExtResource("1_0ylcf")
+texture_region_size = Vector2i(32, 40)
 0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -8)
+0:0/0/texture_origin = Vector2i(0, -12)
 1:0/0 = 0
-1:0/0/texture_origin = Vector2i(0, -8)
+1:0/0/texture_origin = Vector2i(0, -12)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_olhp8"]
+texture = ExtResource("2_edqqj")
+texture_region_size = Vector2i(32, 50)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -7)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -7)
 
 [resource]
 tile_shape = 1
 tile_layout = 5
 tile_offset_axis = 1
 tile_size = Vector2i(32, 16)
-sources/0 = SubResource("TileSetAtlasSource_ky45h")
+sources/0 = SubResource("TileSetAtlasSource_4e8gv")
+sources/1 = SubResource("TileSetAtlasSource_olhp8")
