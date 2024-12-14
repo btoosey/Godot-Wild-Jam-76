@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://dmugshwh8g3jq"]
+[gd_scene load_steps=2 format=3 uid="uid://dmugshwh8g3jq"]
+
+[ext_resource type="TileSet" uid="uid://becqcnk0d155a" path="res://assets/tilesheets/test_tilesheet_01.tres" id="1_p40ks"]
 
 [node name="Main" type="Node2D"]
+
+[node name="Map" type="Node2D" parent="."]
+
+[node name="Mountain" type="TileMapLayer" parent="Map"]
+tile_set = ExtResource("1_p40ks")
