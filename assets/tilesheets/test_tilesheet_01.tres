@@ -9,11 +9,9 @@ texture_region_size = Vector2i(32, 40)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, -12)
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, -16, 24, 0, 32, 16, 24, 16, 0)
-0:0/0/custom_data_0 = true
 1:0/0 = 0
 1:0/0/texture_origin = Vector2i(0, -12)
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 0, -16, 8, -16.125, 24.25, -0.0883884, 32.085, 16, 24.125, 16, 8)
-1:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_olhp8"]
 texture = ExtResource("2_edqqj")
@@ -31,7 +29,5 @@ tile_layout = 5
 tile_offset_axis = 1
 tile_size = Vector2i(32, 16)
 physics_layer_0/collision_layer = 1
-custom_data_layer_0/name = "available"
-custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_4e8gv")
 sources/1 = SubResource("TileSetAtlasSource_olhp8")

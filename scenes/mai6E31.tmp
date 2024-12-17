@@ -62,21 +62,14 @@ script = ExtResource("5_oqsgl")
 map_generator = NodePath("../Map")
 mountain = NodePath("../Map/Mountain")
 
-[node name="TileInfoPreview" type="Control" parent="." node_paths=PackedStringArray("tile_selector", "mountain")]
+[node name="TileInfoPreview" type="Control" parent="." node_paths=PackedStringArray("tile_selector")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("6_cf2vl")
 tile_selector = NodePath("../TileSelector")
-mountain = NodePath("../Map/Mountain")
 
 [node name="TileAvailabilityLabel" type="Label" parent="TileInfoPreview"]
 offset_left = 191.0
 offset_top = -74.0
 offset_right = 231.0
 offset_bottom = -51.0
-
-[node name="TileHeightLabel" type="Label" parent="TileInfoPreview"]
-offset_left = 191.0
-offset_top = -50.0
-offset_right = 231.0
-offset_bottom = -27.0

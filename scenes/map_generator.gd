@@ -6,52 +6,45 @@ extends Node2D
 @onready var mountain: Mountain = $Mountain
 var tree_coverage_noise = FastNoiseLite.new()
 
-var height_matrix =[]
-
 
 func _ready() -> void:
-	initialize_height_matrix()
 	generate_map()
 
 
-func initialize_height_matrix() -> void:
-	for i in width:
-		height_matrix.append([])
-		for j in height:
-			height_matrix[i].append(0.0)
-
-
 func generate_map() -> void:
+	MountainTilesData.initialize_matrices(height, width)
+
 	for i: int in width:
 		for j: int in height:
 			var white_noise_value = randf_range(0.95, 1)
 			var width_val = (1 / width) * i
 			var height_val = (1 / height) * j
 			var cell_noise_value: float = average(width_val, height_val) * white_noise_value
-			height_matrix[i][j] = cell_noise_value
+			
+			MountainTilesData.update_height_matrix(i, j, cell_noise_value)
 
 			if cell_noise_value <= 0.1:
-				mountain.get_child(0).set_cell(Vector2i(i, j), tree_coverage(Vector2i(i, j)), Vector2i(0, 0))
+				set_layer_cell(0, Vector2i(i, j), Vector2i(0, 0))
 			elif cell_noise_value <= 0.14:
-				mountain.get_child(1).set_cell(Vector2i(i, j), tree_coverage(Vector2i(i, j)), Vector2i(0, 0))
+				set_layer_cell(1, Vector2i(i, j), Vector2i(0, 0))
 			elif cell_noise_value <= 0.18:
-				mountain.get_child(2).set_cell(Vector2i(i, j), tree_coverage(Vector2i(i, j)), Vector2i(0, 0))
+				set_layer_cell(2, Vector2i(i, j), Vector2i(0, 0))
 			elif cell_noise_value <= 0.22:
-				mountain.get_child(3).set_cell(Vector2i(i, j), tree_coverage(Vector2i(i, j)), Vector2i(0, 0))
+				set_layer_cell(3, Vector2i(i, j), Vector2i(0, 0))
 			elif cell_noise_value <= 0.26:
-				mountain.get_child(4).set_cell(Vector2i(i, j), tree_coverage(Vector2i(i, j)), Vector2i(0, 0))
+				set_layer_cell(4, Vector2i(i, j), Vector2i(0, 0))
 			elif cell_noise_value <= 0.276:
-				mountain.get_child(4).set_cell(Vector2i(i, j), tree_coverage(Vector2i(i, j)), Vector2i(1, 0))
+				set_layer_cell(4, Vector2i(i, j), Vector2i(1, 0))
 			elif cell_noise_value <= 0.33:
-				mountain.get_child(5).set_cell(Vector2i(i, j), tree_coverage(Vector2i(i, j)), Vector2i(0, 0))
+				set_layer_cell(5, Vector2i(i, j), Vector2i(0, 0))
 			elif cell_noise_value <= 0.4:
-				mountain.get_child(5).set_cell(Vector2i(i, j), tree_coverage(Vector2i(i, j)), Vector2i(1, 0))
+				set_layer_cell(5, Vector2i(i, j), Vector2i(1, 0))
 			elif cell_noise_value <= 0.48:
-				mountain.get_child(6).set_cell(Vector2i(i, j), tree_coverage(Vector2i(i, j)), Vector2i(0, 0))
+				set_layer_cell(6, Vector2i(i, j), Vector2i(0, 0))
 			elif cell_noise_value <= 0.58:
-				mountain.get_child(6).set_cell(Vector2i(i, j), tree_coverage(Vector2i(i, j)), Vector2i(1, 0))
+				set_layer_cell(6, Vector2i(i, j), Vector2i(1, 0))
 			elif cell_noise_value <= 0.8:
-				mountain.get_child(7).set_cell(Vector2i(i, j), tree_coverage(Vector2i(i, j)), Vector2i(0, 0))
+				set_layer_cell(7, Vector2i(i, j), Vector2i(0, 0))
 
 
 func average(value_1: float, value_2: float) -> float:
@@ -62,7 +55,15 @@ func tree_coverage(coordinates: Vector2i) -> int:
 	tree_coverage_noise.seed = randi()
 	tree_coverage_noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	tree_coverage_noise.frequency = 0.3
+
 	if tree_coverage_noise.get_noise_2d(coordinates[0], coordinates[1]) > 0.23:
 		return 1
 	else:
 		return 0
+
+
+func set_layer_cell(layer: int, coords: Vector2i, tileset_coords: Vector2i) -> void:
+	var cell_has_tree = tree_coverage(coords)
+	mountain.get_child(layer).set_cell(coords, cell_has_tree, tileset_coords)
+	if cell_has_tree == 0:
+		MountainTilesData.cell_availability_matrix[coords.x][coords.y] = true
