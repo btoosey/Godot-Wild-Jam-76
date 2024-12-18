@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://hdmdxttpdd8k"]
+
+[ext_resource type="Script" path="res://scenes/ski_run.gd" id="1_vo1bt"]
+
+[node name="SkiRun" type="Node2D"]
+script = ExtResource("1_vo1bt")
