@@ -33,11 +33,11 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("select_tile"):
 		if ski_runs.ski_runs.is_empty():
-			create_new_run(hovered_cell, run_type)
+			create_new_run(hovered_cell)
 		else:
 			var valid_neighbours = get_valid_neighbours(hovered_cell, run_type)
 			if valid_neighbours.is_empty():
-				create_new_run(hovered_cell, run_type)
+				create_new_run(hovered_cell)
 			else:
 				check_for_joinable_runs(hovered_cell, valid_neighbours)
 
@@ -56,22 +56,24 @@ func get_surrounding_cells(coords) -> Array:
 	return cell_layer.get_surrounding_cells(coords)
 
 
-func create_new_run(cell_coords, type) -> void:
+func create_new_run(cell_coords) -> void:
 	var new_run = SkiRun.new()
 	ski_runs.add_child(new_run)
 	ski_runs.ski_runs.append(new_run)
 	single_ski_runs.append(new_run)
-	new_run.initialize(type, cell_coords)
+	new_run.initialize(run_type, cell_coords)
+	for run in ski_runs.ski_runs:
+		print(run.tiles)
 	run_created.emit(new_run)
 
 
 func check_for_joinable_runs(cell, runs) -> void:
 	for run in runs:
-		if MountainTilesData.cell_height_matrix[cell.x][cell.y] > MountainTilesData.cell_height_matrix[run.run_start_tile.x][run.run_start_tile.y]:
-			run.add_cell(cell)
-			return
-		if MountainTilesData.cell_height_matrix[cell.x][cell.y] < MountainTilesData.cell_height_matrix[run.run_end_tile.x][run.run_end_tile.y]:
-			run.add_cell(cell)
-			return
+		if MountainTilesData.cell_height_matrix[cell.x][cell.y] < MountainTilesData.cell_height_matrix[run.run_start_tile.x][run.run_start_tile.y] or MountainTilesData.cell_height_matrix[cell.x][cell.y] > MountainTilesData.cell_height_matrix[run.run_end_tile.x][run.run_end_tile.y]:
+			if cell - run.run_start_tile == Vector2i(-1, 1) or cell - run.run_start_tile == Vector2i(1, -1) or cell - run.run_end_tile == Vector2i(-1, 1) or cell - run.run_end_tile == Vector2i(1, -1):
+				create_new_run(cell)
+			else:
+				run.add_cell(cell)
+				return
 		else:
 			continue
