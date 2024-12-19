@@ -35,14 +35,18 @@ func generate_map() -> void:
 				set_layer_cell(4, Vector2i(i, j), Vector2i(0, 0))
 			elif cell_noise_value <= 0.276:
 				set_layer_cell(4, Vector2i(i, j), Vector2i(1, 0))
+				set_as_half_tile(i, j)
 			elif cell_noise_value <= 0.33:
 				set_layer_cell(5, Vector2i(i, j), Vector2i(0, 0))
 			elif cell_noise_value <= 0.4:
 				set_layer_cell(5, Vector2i(i, j), Vector2i(1, 0))
+				set_as_half_tile(i, j)
 			elif cell_noise_value <= 0.48:
 				set_layer_cell(6, Vector2i(i, j), Vector2i(0, 0))
 			elif cell_noise_value <= 0.58:
 				set_layer_cell(6, Vector2i(i, j), Vector2i(1, 0))
+				set_as_half_tile(i, j)
+				MountainTilesData.cell_tile_size_matrix[i][j] = 1
 			elif cell_noise_value <= 0.8:
 				set_layer_cell(7, Vector2i(i, j), Vector2i(0, 0))
 
@@ -72,3 +76,6 @@ func set_layer_cell(layer: int, coords: Vector2i, tileset_coords: Vector2i) -> v
 	mountain.get_child(layer).set_cell(coords, cell_has_tree, tileset_coords)
 	if cell_has_tree == 0:
 		MountainTilesData.cell_availability_matrix[coords.x][coords.y] = true
+
+func set_as_half_tile(x, y) -> void:
+		MountainTilesData.cell_tile_size_matrix[x][y] = 1

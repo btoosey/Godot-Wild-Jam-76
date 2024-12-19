@@ -7,6 +7,7 @@ signal run_created(run)
 @export var mountain: Mountain
 @export var run_type:= RunTypeSelection.GREEN
 @export var ski_runs: RunManager
+var single_ski_runs: Array[SkiRun]
 
 var hovered_cell
 
@@ -45,7 +46,7 @@ func get_valid_neighbours(cell, type) -> Array:
 	var matching_runs = []
 	for run in ski_runs.get_children():
 		for neighbour in get_surrounding_cells(cell):
-			if run.tiles.has(neighbour):
+			if run.run_type == run_type and run.tiles.has(neighbour):
 				matching_runs.append(run)
 	return matching_runs
 
@@ -59,6 +60,7 @@ func create_new_run(cell_coords, type) -> void:
 	var new_run = SkiRun.new()
 	ski_runs.add_child(new_run)
 	ski_runs.ski_runs.append(new_run)
+	single_ski_runs.append(new_run)
 	new_run.initialize(type, cell_coords)
 	run_created.emit(new_run)
 

@@ -31,6 +31,7 @@ func add_cell(cell) -> void:
 	tiles.append(cell)
 	sort_tiles()
 	update_start_end_tiles()
+	MountainTilesData.cell_availability_matrix[cell.x][cell.y] = false
 	updated_run.emit()
 
 

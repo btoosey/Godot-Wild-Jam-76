@@ -28,13 +28,12 @@ func _on_updated_run(run) -> void:
 func update_run(run) -> void:
 	var new_sprites = calculate_tile_sprites(run)
 	for i in run.tiles.size():
-		print(run.tiles[i])
 		mountain.get_cell_layer(run.tiles[i]).set_cell(run.tiles[i], 2, new_sprites[i])
 
 
 func calculate_tile_sprites(run) -> Array:
 	var return_array = []
-	
+
 	for i in run.tiles.size():
 
 		var start_vector:= Vector2i.ZERO
@@ -55,6 +54,9 @@ func calculate_tile_sprites(run) -> Array:
 				start_vector += direction_dictionary["BotL"]
 			else:
 				start_vector += direction_dictionary["BotR"]
+
+		if MountainTilesData.cell_tile_size_matrix[run.tiles[i].x][run.tiles[i].y] == 1:
+			start_vector += Vector2i(0, 3)
 
 		return_array.append(start_vector)
 	return return_array
