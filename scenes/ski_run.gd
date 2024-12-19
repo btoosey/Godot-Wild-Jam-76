@@ -1,7 +1,7 @@
 class_name SkiRun
 extends Node
 
-signal updated_run(run)
+signal updated_run
 
 var tiles: Array = []
 var run_start_tile: Vector2i
@@ -11,9 +11,7 @@ var run_type: int
 
 func initialize(type, coords) -> void:
 	run_type = type
-	tiles.append(coords)
-	run_start_tile = coords
-	run_end_tile = coords
+	add_cell(coords)
 
 
 func run_length() -> int:
@@ -31,13 +29,21 @@ func run_avg_slope() -> float:
 
 func add_cell(cell) -> void:
 	tiles.append(cell)
+	sort_tiles()
 	update_start_end_tiles()
-	updated_run.emit(self)
+	updated_run.emit()
 
 
 func update_start_end_tiles() -> void:
-	for tile in tiles:
-		if MountainTilesData.cell_height_matrix[tile.x][tile.y] > MountainTilesData.cell_height_matrix[run_start_tile.x][run_start_tile.y]:
-			run_start_tile = tile
-		if MountainTilesData.cell_height_matrix[tile.x][tile.y] < MountainTilesData.cell_height_matrix[run_end_tile.x][run_end_tile.y]:
-			run_end_tile = tile
+	run_start_tile = tiles[0]
+	run_end_tile = tiles[-1]
+
+
+func sort_tiles() -> void:
+	tiles.sort_custom(sort_descending_height)
+
+
+func sort_descending_height(a, b):
+	if MountainTilesData.cell_height_matrix[a.x][a.y] < MountainTilesData.cell_height_matrix[b.x][b.y]:
+		return true
+	return false

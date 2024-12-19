@@ -95,9 +95,8 @@ offset_top = -50.0
 offset_right = 231.0
 offset_bottom = -27.0
 
-[node name="RunVisualsManager" type="Node" parent="." node_paths=PackedStringArray("run_placement_manager", "mountain")]
+[node name="RunVisualsManager" type="Node" parent="." node_paths=PackedStringArray("run_placement_manager")]
 script = ExtResource("9_mxt6q")
 run_placement_manager = NodePath("../RunPlacement")
-mountain = NodePath("../Map/Mountain")
 
 [connection signal="run_created" from="RunPlacement" to="RunVisualsManager" method="_on_run_placement_run_created"]

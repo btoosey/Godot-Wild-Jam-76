@@ -1,6 +1,8 @@
 class_name RunPlacement
 extends Node2D
 
+signal run_created(run)
+
 @export var tile_selector: TileSelector
 @export var mountain: Mountain
 @export var run_type:= RunTypeSelection.GREEN
@@ -52,9 +54,10 @@ func get_surrounding_cells(coords) -> Array:
 
 func create_new_run(cell_coords, type) -> void:
 	var new_run = SkiRun.new()
-	new_run.initialize(type, cell_coords)
 	ski_runs.add_child(new_run)
 	ski_runs.ski_runs.append(new_run)
+	new_run.initialize(type, cell_coords)
+	run_created.emit(new_run)
 
 
 func check_for_joinable_runs(cell, runs) -> void:
