@@ -27,6 +27,9 @@ func _input(event: InputEvent) -> void:
 	if hovered_cell == null:
 		return
 
+	if MountainTilesData.cell_availability_matrix[hovered_cell.x][hovered_cell.y] == false:
+		return
+
 	if event.is_action_pressed("select_tile"):
 		if ski_runs.ski_runs.is_empty():
 			create_new_run(hovered_cell, run_type)

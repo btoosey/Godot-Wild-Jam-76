@@ -56,10 +56,14 @@ func tree_coverage(coordinates: Vector2i) -> int:
 	tree_coverage_noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	tree_coverage_noise.frequency = 0.3
 
-	if tree_coverage_noise.get_noise_2d(coordinates[0], coordinates[1]) > 0.23:
+	if tree_coverage_noise.get_noise_2d(coordinates[0], coordinates[1]) > tree_coverage_intensity():
 		return 1
 	else:
 		return 0
+
+
+func tree_coverage_intensity() -> float:
+	return randf_range(0.17, 0.22)
 
 
 func set_layer_cell(layer: int, coords: Vector2i, tileset_coords: Vector2i) -> void:
