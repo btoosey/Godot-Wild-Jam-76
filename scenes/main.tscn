@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dmugshwh8g3jq"]
+[gd_scene load_steps=20 format=3 uid="uid://dmugshwh8g3jq"]
 
 [ext_resource type="Script" path="res://scenes/map_generator.gd" id="1_3mi4c"]
 [ext_resource type="TileSet" uid="uid://becqcnk0d155a" path="res://assets/tilesheets/test_tilesheet_01.tres" id="1_p40ks"]
@@ -8,13 +8,17 @@
 [ext_resource type="Script" path="res://scripts/components/tile_selector.gd" id="5_oqsgl"]
 [ext_resource type="Script" path="res://scenes/tile_info_preview.gd" id="6_cf2vl"]
 [ext_resource type="Script" path="res://scripts/components/run_placement.gd" id="7_1n810"]
+[ext_resource type="Script" path="res://scripts/components/game_state_machine.gd" id="9_j36q8"]
 [ext_resource type="Script" path="res://scripts/components/run_visuals_manager.gd" id="9_mxt6q"]
 [ext_resource type="Script" path="res://scenes/inventory.gd" id="10_du5vy"]
+[ext_resource type="Script" path="res://scripts/components/game_states/game_start_state.gd" id="10_i2vmv"]
 [ext_resource type="PackedScene" uid="uid://b2wgilyxewgju" path="res://scenes/buttons/run_button.tscn" id="11_cn5kd"]
-[ext_resource type="Resource" uid="uid://cqoal3v0p0y1p" path="res://data/green_run.tres" id="12_gqejp"]
-[ext_resource type="Resource" uid="uid://duhblsewo1mm3" path="res://data/blue_run.tres" id="13_bdf2r"]
-[ext_resource type="Resource" uid="uid://cwaktcpkqjq6t" path="res://data/red_run.tres" id="14_wgkvi"]
-[ext_resource type="Resource" uid="uid://bwsvdlxu1i3ed" path="res://data/black_run.tres" id="15_1wx8q"]
+[ext_resource type="Script" path="res://scripts/components/game_states/game_run_state.gd" id="11_i4ivl"]
+[ext_resource type="Resource" uid="uid://cqoal3v0p0y1p" path="res://data/ui/green_run.tres" id="12_gqejp"]
+[ext_resource type="Script" path="res://scripts/components/game_states/game_pause_state.gd" id="12_kiy7g"]
+[ext_resource type="Resource" uid="uid://duhblsewo1mm3" path="res://data/ui/blue_run.tres" id="13_bdf2r"]
+[ext_resource type="Resource" uid="uid://cwaktcpkqjq6t" path="res://data/ui/red_run.tres" id="14_wgkvi"]
+[ext_resource type="Resource" uid="uid://bwsvdlxu1i3ed" path="res://data/ui/black_run.tres" id="15_1wx8q"]
 
 [node name="Main" type="Node2D"]
 
@@ -81,6 +85,25 @@ tile_selector = NodePath("../TileSelector")
 mountain = NodePath("../Map/Mountain")
 ski_runs = NodePath("../Map/Runs")
 
+[node name="RunVisualsManager" type="Node" parent="." node_paths=PackedStringArray("run_placement_manager", "mountain")]
+script = ExtResource("9_mxt6q")
+run_placement_manager = NodePath("../RunPlacement")
+mountain = NodePath("../Map/Mountain")
+
+[node name="GameStateMachine" type="Node" parent="."]
+script = ExtResource("9_j36q8")
+
+[node name="GameStartState" type="Node" parent="GameStateMachine"]
+script = ExtResource("10_i2vmv")
+
+[node name="GameRunState" type="Node" parent="GameStateMachine"]
+script = ExtResource("11_i4ivl")
+state = 1
+
+[node name="GamePauseState" type="Node" parent="GameStateMachine"]
+script = ExtResource("12_kiy7g")
+state = 2
+
 [node name="TileInfoPreview" type="Control" parent="." node_paths=PackedStringArray("tile_selector", "mountain")]
 layout_mode = 3
 anchors_preset = 0
@@ -101,11 +124,6 @@ offset_left = 191.0
 offset_top = -50.0
 offset_right = 231.0
 offset_bottom = -27.0
-
-[node name="RunVisualsManager" type="Node" parent="." node_paths=PackedStringArray("run_placement_manager", "mountain")]
-script = ExtResource("9_mxt6q")
-run_placement_manager = NodePath("../RunPlacement")
-mountain = NodePath("../Map/Mountain")
 
 [node name="Inventory" type="Control" parent="." node_paths=PackedStringArray("run_placement")]
 layout_mode = 3

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="RunButtonStats" load_steps=3 format=3 uid="uid://bwsvdlxu1i3ed"]
 
 [ext_resource type="Texture2D" uid="uid://dj401ehhuylac" path="res://assets/sprites/tilesheets/run_buttons_black_normal.png" id="1_5dp05"]
-[ext_resource type="Script" path="res://data/run_button_stats.gd" id="1_27bp1"]
+[ext_resource type="Script" path="res://data/ui/run_button_stats.gd" id="1_27bp1"]
 
 [resource]
 script = ExtResource("1_27bp1")
