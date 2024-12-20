@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dmugshwh8g3jq"]
+[gd_scene load_steps=22 format=3 uid="uid://dmugshwh8g3jq"]
 
 [ext_resource type="Script" path="res://scenes/map_generator.gd" id="1_3mi4c"]
 [ext_resource type="TileSet" uid="uid://becqcnk0d155a" path="res://assets/tilesheets/test_tilesheet_01.tres" id="1_p40ks"]
@@ -19,6 +19,8 @@
 [ext_resource type="Resource" uid="uid://duhblsewo1mm3" path="res://data/ui/blue_run.tres" id="13_bdf2r"]
 [ext_resource type="Resource" uid="uid://cwaktcpkqjq6t" path="res://data/ui/red_run.tres" id="14_wgkvi"]
 [ext_resource type="Resource" uid="uid://bwsvdlxu1i3ed" path="res://data/ui/black_run.tres" id="15_1wx8q"]
+[ext_resource type="Script" path="res://scripts/components/world_timer.gd" id="21_k7kn4"]
+[ext_resource type="Script" path="res://scenes/ui/money_display.gd" id="21_sstee"]
 
 [node name="Main" type="Node2D"]
 
@@ -104,6 +106,14 @@ state = 1
 script = ExtResource("12_kiy7g")
 state = 2
 
+[node name="WorldTimer" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("21_k7kn4")
+
+[node name="Timer" type="Timer" parent="WorldTimer"]
+wait_time = 2.0
+autostart = true
+
 [node name="TileInfoPreview" type="Control" parent="." node_paths=PackedStringArray("tile_selector", "mountain")]
 layout_mode = 3
 anchors_preset = 0
@@ -167,4 +177,19 @@ offset_right = 194.0
 offset_bottom = 40.0
 stats = ExtResource("15_1wx8q")
 
+[node name="MoneyDisplay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -21.0
+offset_top = 267.0
+offset_right = 19.0
+offset_bottom = 307.0
+script = ExtResource("21_sstee")
+
+[node name="MoneyLabel" type="Label" parent="MoneyDisplay"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
 [connection signal="run_created" from="RunPlacement" to="RunVisualsManager" method="_on_run_placement_run_created"]
+[connection signal="timeout" from="WorldTimer/Timer" to="WorldTimer" method="_on_timer_timeout"]
