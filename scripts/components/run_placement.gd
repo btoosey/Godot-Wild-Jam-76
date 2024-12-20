@@ -5,13 +5,12 @@ signal run_created(run)
 
 @export var tile_selector: TileSelector
 @export var mountain: Mountain
-var run_type
 @export var ski_runs: RunManager
+
 var single_ski_runs: Array[SkiRun]
-
 var hovered_cell
+var run_type
 
-enum RunTypeSelection {GREEN, BLUE, RED, BLACK}
 
 func _ready() -> void:
 	tile_selector.current_cell_changed.connect(_on_cell_hovered)
@@ -65,8 +64,6 @@ func create_new_run(cell_coords) -> void:
 	ski_runs.ski_runs.append(new_run)
 	single_ski_runs.append(new_run)
 	new_run.initialize(run_type, cell_coords)
-	for run in ski_runs.ski_runs:
-		print(run.tiles)
 	run_created.emit(new_run)
 
 

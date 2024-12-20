@@ -3,7 +3,10 @@ extends Node2D
 
 @export var width: float
 @export var height: float
-@onready var mountain: Mountain = $Mountain
+@export var mountain: Mountain
+@export var min_tree_intensity: float = 0.22
+@export var max_tree_intensity: float = 0.17
+
 var tree_coverage_noise = FastNoiseLite.new()
 
 
@@ -56,6 +59,8 @@ func average(value_1: float, value_2: float) -> float:
 
 
 func tree_coverage(coordinates: Vector2i) -> int:
+	#Calculates tree coverage based on perlin noise map value
+
 	tree_coverage_noise.seed = randi()
 	tree_coverage_noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	tree_coverage_noise.frequency = 0.3
@@ -67,7 +72,7 @@ func tree_coverage(coordinates: Vector2i) -> int:
 
 
 func tree_coverage_intensity() -> float:
-	return randf_range(0.17, 0.22)
+	return randf_range(max_tree_intensity, min_tree_intensity)
 
 
 func set_layer_cell(layer: int, coords: Vector2i, tileset_coords: Vector2i) -> void:
@@ -76,6 +81,7 @@ func set_layer_cell(layer: int, coords: Vector2i, tileset_coords: Vector2i) -> v
 	mountain.get_child(layer).set_cell(coords, cell_has_tree, tileset_coords)
 	if cell_has_tree == 0:
 		MountainTilesData.cell_availability_matrix[coords.x][coords.y] = true
+
 
 func set_as_half_tile(x, y) -> void:
 		MountainTilesData.cell_tile_size_matrix[x][y] = 1

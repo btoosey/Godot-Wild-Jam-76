@@ -18,11 +18,12 @@
 
 [node name="Main" type="Node2D"]
 
-[node name="Map" type="Node2D" parent="."]
+[node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("mountain")]
 position = Vector2(-16, -8)
 script = ExtResource("1_3mi4c")
 width = 16.0
 height = 16.0
+mountain = NodePath("Mountain")
 metadata/_edit_lock_ = true
 
 [node name="Mountain" type="Node2D" parent="Map"]

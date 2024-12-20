@@ -35,7 +35,6 @@ func calculate_tile_sprites(run) -> Array:
 	var return_array = []
 
 	for i in run.tiles.size():
-
 		var start_vector:= Vector2i.ZERO
 
 		if run.run_end_tile == run.run_start_tile:

@@ -8,7 +8,7 @@ signal current_cell_changed(coords)
 @export var mountain: Mountain
 
 var mountain_layers: Array
-var mouse_pos
+var mouse_pos: Vector2
 var hovered_rids: Array = []
 
 
