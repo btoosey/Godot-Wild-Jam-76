@@ -11,6 +11,13 @@ var single_ski_runs: Array[SkiRun]
 var hovered_cell
 var run_type
 
+var run_tile_cost = {
+	0: 10,
+	1: 20,
+	2: 40,
+	3: 80,
+}
+
 
 func _ready() -> void:
 	tile_selector.current_cell_changed.connect(_on_cell_hovered)
@@ -32,6 +39,10 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("select_tile"):
 		if run_type == null:
+			return
+
+		if PlayerData.player_money - run_tile_cost[run_type] < 0:
+			#TODO Throw up message: "Not enough money", using same component as money tick?
 			return
 
 		if ski_runs.ski_runs.is_empty():
@@ -65,6 +76,7 @@ func create_new_run(cell_coords) -> void:
 	single_ski_runs.append(new_run)
 	new_run.initialize(run_type, cell_coords)
 	run_created.emit(new_run)
+	PlayerData.player_money -= run_tile_cost[run_type]
 
 
 func check_for_joinable_runs(cell, runs) -> void:
@@ -74,6 +86,7 @@ func check_for_joinable_runs(cell, runs) -> void:
 				create_new_run(cell)
 			else:
 				run.add_cell(cell)
+				PlayerData.player_money -= run_tile_cost[run_type]
 				return
 		else:
 			continue

@@ -8,6 +8,8 @@ var run_start_tile: Vector2i
 var run_end_tile: Vector2i
 var run_type: int
 
+var money_tick_counter:= 0
+
 
 func initialize(type, coords) -> void:
 	run_type = type
@@ -48,3 +50,6 @@ func sort_descending_height(a, b):
 	if MountainTilesData.cell_height_matrix[a.x][a.y] < MountainTilesData.cell_height_matrix[b.x][b.y]:
 		return true
 	return false
+
+func earn_money(value) -> void:
+	PlayerData.player_money += value
