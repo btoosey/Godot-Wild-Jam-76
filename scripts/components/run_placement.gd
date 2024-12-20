@@ -5,7 +5,7 @@ signal run_created(run)
 
 @export var tile_selector: TileSelector
 @export var mountain: Mountain
-@export var run_type:= RunTypeSelection.GREEN
+var run_type
 @export var ski_runs: RunManager
 var single_ski_runs: Array[SkiRun]
 
@@ -32,17 +32,20 @@ func _input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("select_tile"):
+		if run_type == null:
+			return
+
 		if ski_runs.ski_runs.is_empty():
 			create_new_run(hovered_cell)
 		else:
-			var valid_neighbours = get_valid_neighbours(hovered_cell, run_type)
+			var valid_neighbours = get_valid_neighbours(hovered_cell)
 			if valid_neighbours.is_empty():
 				create_new_run(hovered_cell)
 			else:
 				check_for_joinable_runs(hovered_cell, valid_neighbours)
 
 
-func get_valid_neighbours(cell, type) -> Array:
+func get_valid_neighbours(cell) -> Array:
 	var matching_runs = []
 	for run in ski_runs.get_children():
 		for neighbour in get_surrounding_cells(cell):

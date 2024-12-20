@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dmugshwh8g3jq"]
+[gd_scene load_steps=12 format=3 uid="uid://dmugshwh8g3jq"]
 
 [ext_resource type="Script" path="res://scenes/map_generator.gd" id="1_3mi4c"]
 [ext_resource type="TileSet" uid="uid://becqcnk0d155a" path="res://assets/tilesheets/test_tilesheet_01.tres" id="1_p40ks"]
@@ -11,10 +11,6 @@
 [ext_resource type="Script" path="res://scripts/components/run_visuals_manager.gd" id="9_mxt6q"]
 [ext_resource type="Script" path="res://scenes/inventory.gd" id="10_du5vy"]
 [ext_resource type="PackedScene" uid="uid://b2wgilyxewgju" path="res://scenes/buttons/run_button.tscn" id="11_cn5kd"]
-[ext_resource type="Resource" uid="uid://cqoal3v0p0y1p" path="res://data/green_run.tres" id="12_gqejp"]
-[ext_resource type="Resource" uid="uid://duhblsewo1mm3" path="res://data/blue_run.tres" id="13_bdf2r"]
-[ext_resource type="Resource" uid="uid://cwaktcpkqjq6t" path="res://data/red_run.tres" id="14_wgkvi"]
-[ext_resource type="Resource" uid="uid://bwsvdlxu1i3ed" path="res://data/black_run.tres" id="15_1wx8q"]
 
 [node name="Main" type="Node2D"]
 
@@ -106,46 +102,39 @@ script = ExtResource("9_mxt6q")
 run_placement_manager = NodePath("../RunPlacement")
 mountain = NodePath("../Map/Mountain")
 
-[node name="Inventory" type="Control" parent="." node_paths=PackedStringArray("run_placement")]
+[node name="Inventory" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 69.0
-offset_top = 184.0
-offset_right = 109.0
-offset_bottom = 224.0
+offset_right = 40.0
+offset_bottom = 40.0
 script = ExtResource("10_du5vy")
-run_placement = NodePath("../RunPlacement")
 
 [node name="GreenRunButton" parent="Inventory" instance=ExtResource("11_cn5kd")]
 layout_mode = 0
-offset_left = -3.0
-offset_top = 56.0
-offset_right = 53.0
-offset_bottom = 87.0
-stats = ExtResource("12_gqejp")
 
-[node name="BlueRunButton" parent="Inventory" instance=ExtResource("11_cn5kd")]
+[node name="BlueRunButton" type="Button" parent="Inventory"]
 layout_mode = 0
-offset_left = 44.0
-offset_top = 38.0
-offset_right = 100.0
-offset_bottom = 69.0
-stats = ExtResource("13_bdf2r")
+offset_left = 115.0
+offset_top = 230.0
+offset_right = 171.0
+offset_bottom = 261.0
+text = "Blue"
 
-[node name="RedRunButton" parent="Inventory" instance=ExtResource("11_cn5kd")]
+[node name="RedRunButton" type="Button" parent="Inventory"]
 layout_mode = 0
-offset_left = 88.0
-offset_top = 25.0
-offset_right = 144.0
-offset_bottom = 56.0
-stats = ExtResource("14_wgkvi")
+offset_left = 180.0
+offset_top = 196.0
+offset_right = 236.0
+offset_bottom = 227.0
+text = "Red"
 
-[node name="BlackRunButton" parent="Inventory" instance=ExtResource("11_cn5kd")]
+[node name="BlackRunButton" type="Button" parent="Inventory"]
 layout_mode = 0
-offset_left = 138.0
-offset_top = 9.0
-offset_right = 194.0
-offset_bottom = 40.0
-stats = ExtResource("15_1wx8q")
+offset_left = 243.0
+offset_top = 161.0
+offset_right = 299.0
+offset_bottom = 192.0
+text = "Black
+"
 
 [connection signal="run_created" from="RunPlacement" to="RunVisualsManager" method="_on_run_placement_run_created"]

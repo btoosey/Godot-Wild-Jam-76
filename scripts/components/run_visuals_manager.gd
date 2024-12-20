@@ -28,7 +28,7 @@ func _on_updated_run(run) -> void:
 func update_run(run) -> void:
 	var new_sprites = calculate_tile_sprites(run)
 	for i in run.tiles.size():
-		mountain.get_cell_layer(run.tiles[i]).set_cell(run.tiles[i], 2, new_sprites[i])
+		mountain.get_cell_layer(run.tiles[i]).set_cell(run.tiles[i], run_placement_manager.run_type + 2, new_sprites[i])
 
 
 func calculate_tile_sprites(run) -> Array:
