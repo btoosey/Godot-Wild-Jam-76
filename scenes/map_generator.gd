@@ -93,6 +93,7 @@ func tree_coverage_intensity() -> float:
 
 func set_layer_cell(layer: int, coords: Vector2i, tileset_coords: Vector2i) -> void:
 	MountainTilesData.cell_layer_matrix[coords.x][coords.y] = layer
+	MountainTilesData.update_to_local_matrix(coords.x, coords.y, mountain.get_child(layer).map_to_local(coords))
 	var cell_has_tree = tree_coverage(coords)
 	mountain.get_child(layer).set_cell(coords, cell_has_tree, tileset_coords)
 	if cell_has_tree == 0:

@@ -25,14 +25,12 @@
 [node name="Main" type="Node2D"]
 
 [node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("mountain")]
-position = Vector2(-16, -8)
 script = ExtResource("1_3mi4c")
 width = 16.0
 height = 16.0
 steepness = 3.0
 mountain = NodePath("Mountain")
 max_tree_intensity = 0.165
-metadata/_edit_lock_ = true
 
 [node name="Mountain" type="Node2D" parent="Map"]
 script = ExtResource("1_t2ah5")
@@ -183,15 +181,16 @@ stats = ExtResource("15_1wx8q")
 layout_mode = 3
 anchors_preset = 0
 offset_left = -21.0
-offset_top = 267.0
+offset_top = 268.0
 offset_right = 19.0
-offset_bottom = 307.0
+offset_bottom = 308.0
 script = ExtResource("21_sstee")
 
 [node name="MoneyLabel" type="Label" parent="MoneyDisplay"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
+theme_override_font_sizes/font_size = 24
 
 [connection signal="run_created" from="RunPlacement" to="RunVisualsManager" method="_on_run_placement_run_created"]
 [connection signal="timeout" from="WorldTimer/Timer" to="WorldTimer" method="_on_timer_timeout"]
