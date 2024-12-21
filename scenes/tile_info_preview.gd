@@ -18,5 +18,5 @@ func _on_current_cell_changed(coords) -> void:
 		tile_height_label.text = "?"
 	else:
 		tile_availability_label.text = str(MountainTilesData.cell_availability_matrix[coords.x][coords.y])
-		tile_height_label.text = str(snapped(1 - MountainTilesData.cell_height_matrix[coords.x][coords.y], 0.001) * 3000) + "m"
+		tile_height_label.text = str(snapped(MountainTilesData.cell_height_matrix[coords.x][coords.y], 0.01) * 2500) + "m"
 	

@@ -81,7 +81,7 @@ func create_new_run(cell_coords) -> void:
 
 func check_for_joinable_runs(cell, runs) -> void:
 	for run in runs:
-		if MountainTilesData.cell_height_matrix[cell.x][cell.y] < MountainTilesData.cell_height_matrix[run.run_start_tile.x][run.run_start_tile.y] or MountainTilesData.cell_height_matrix[cell.x][cell.y] > MountainTilesData.cell_height_matrix[run.run_end_tile.x][run.run_end_tile.y]:
+		if MountainTilesData.cell_height_matrix[cell.x][cell.y] > MountainTilesData.cell_height_matrix[run.run_start_tile.x][run.run_start_tile.y] or MountainTilesData.cell_height_matrix[cell.x][cell.y] < MountainTilesData.cell_height_matrix[run.run_end_tile.x][run.run_end_tile.y]:
 			if cell - run.run_start_tile == Vector2i(-1, 1) or cell - run.run_start_tile == Vector2i(1, -1) or cell - run.run_end_tile == Vector2i(-1, 1) or cell - run.run_end_tile == Vector2i(1, -1):
 				create_new_run(cell)
 			else:
