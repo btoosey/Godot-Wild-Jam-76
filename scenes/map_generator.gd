@@ -3,9 +3,11 @@ extends Node2D
 
 @export var width: float
 @export var height: float
+@export var steepness: float = 2
 @export var mountain: Mountain
 @export var min_tree_intensity: float = 0.22
 @export var max_tree_intensity: float = 0.17
+
 
 var tree_coverage_noise = FastNoiseLite.new()
 
@@ -16,46 +18,60 @@ func _ready() -> void:
 
 func generate_map() -> void:
 	MountainTilesData.initialize_matrices(height, width)
-
+	
+	var max_distance = sqrt(pow(width - 1, 2) + pow(height - 1, 2))
 	for i: int in width:
 		for j: int in height:
-			var white_noise_value = randf_range(0.95, 1)
-			var width_val = (1 / width) * i
-			var height_val = (1 / height) * j
-			var cell_noise_value: float = average(width_val, height_val) * white_noise_value
+			var white_noise_value = randf_range(0.97, 1)
+
+			var value = calculate_tile_height_value(i, j, max_distance)
+
+			var cell_noise_value: float = value * white_noise_value
 			
 			MountainTilesData.update_height_matrix(i, j, cell_noise_value)
 
-			if cell_noise_value <= 0.1:
+			if cell_noise_value >= 0.9:
 				set_layer_cell(0, Vector2i(i, j), Vector2i(0, 0))
-			elif cell_noise_value <= 0.14:
+			elif cell_noise_value >= 0.78:
 				set_layer_cell(1, Vector2i(i, j), Vector2i(0, 0))
-			elif cell_noise_value <= 0.18:
+			elif cell_noise_value >= 0.68:
 				set_layer_cell(2, Vector2i(i, j), Vector2i(0, 0))
-			elif cell_noise_value <= 0.22:
+			elif cell_noise_value >= 0.64:
+				set_layer_cell(2, Vector2i(i, j), Vector2i(1, 0))
+				set_as_half_tile(i, j)
+			elif cell_noise_value >= 0.55:
 				set_layer_cell(3, Vector2i(i, j), Vector2i(0, 0))
-			elif cell_noise_value <= 0.26:
+			elif cell_noise_value >= 0.53:
+				set_layer_cell(3, Vector2i(i, j), Vector2i(1, 0))
+				set_as_half_tile(i, j)
+			elif cell_noise_value >= 0.45:
 				set_layer_cell(4, Vector2i(i, j), Vector2i(0, 0))
-			elif cell_noise_value <= 0.276:
+			elif cell_noise_value >= 0.37:
 				set_layer_cell(4, Vector2i(i, j), Vector2i(1, 0))
 				set_as_half_tile(i, j)
-			elif cell_noise_value <= 0.33:
+			elif cell_noise_value >= 0.3:
 				set_layer_cell(5, Vector2i(i, j), Vector2i(0, 0))
-			elif cell_noise_value <= 0.4:
+			elif cell_noise_value >= 0.25:
 				set_layer_cell(5, Vector2i(i, j), Vector2i(1, 0))
 				set_as_half_tile(i, j)
-			elif cell_noise_value <= 0.48:
+			elif cell_noise_value >= 0.2:
 				set_layer_cell(6, Vector2i(i, j), Vector2i(0, 0))
-			elif cell_noise_value <= 0.58:
+			elif cell_noise_value >= 0.15:
 				set_layer_cell(6, Vector2i(i, j), Vector2i(1, 0))
 				set_as_half_tile(i, j)
 				MountainTilesData.cell_tile_size_matrix[i][j] = 1
-			elif cell_noise_value <= 0.8:
+			elif cell_noise_value >= 0.08:
 				set_layer_cell(7, Vector2i(i, j), Vector2i(0, 0))
 
 
 func average(value_1: float, value_2: float) -> float:
 	return (value_1 + value_2) / 2
+
+
+func calculate_tile_height_value(i, j, max_distance) -> float:
+	var distance = sqrt((i ** 2) + (j ** 2))
+	var normalised_distance = distance / max_distance
+	return exp(-steepness * normalised_distance)
 
 
 func tree_coverage(coordinates: Vector2i) -> int:

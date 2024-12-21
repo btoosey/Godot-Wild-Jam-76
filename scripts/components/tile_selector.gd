@@ -30,6 +30,7 @@ func _physics_process(_delta):
 		get_highest_cell_coords(hovered_rids)
 
 
+
 func get_highest_cell_coords(rids) -> void:
 	var highest_cell_coords = null
 
@@ -40,5 +41,4 @@ func get_highest_cell_coords(rids) -> void:
 		else:
 			if selection - highest_cell_coords > Vector2i(0,0):
 				highest_cell_coords = selection
-
 	current_cell_changed.emit(highest_cell_coords)

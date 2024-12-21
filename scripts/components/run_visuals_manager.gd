@@ -42,17 +42,17 @@ func calculate_tile_sprites(run) -> Array:
 		else:
 			if i == 0:
 				start_vector += direction_dictionary["None"]
-			elif run.tiles[i] - run.tiles[i - 1] == Vector2i(1, 0):
-				start_vector += direction_dictionary["TopL"]
-			else:
+			elif run.tiles[i] - run.tiles[i - 1] == Vector2i(0, 1):
 				start_vector += direction_dictionary["TopR"]
+			else:
+				start_vector += direction_dictionary["TopL"]
 			
 			if i == run.tiles.size() - 1:
 				start_vector += direction_dictionary["None"]
-			elif run.tiles[i + 1] - run.tiles[i] == Vector2i(0, 1):
-				start_vector += direction_dictionary["BotL"]
-			else:
+			elif run.tiles[i + 1] - run.tiles[i] == Vector2i(1, 0):
 				start_vector += direction_dictionary["BotR"]
+			else:
+				start_vector += direction_dictionary["BotL"]
 
 		if MountainTilesData.cell_tile_size_matrix[run.tiles[i].x][run.tiles[i].y] == 1:
 			start_vector += Vector2i(0, 3)

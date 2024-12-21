@@ -47,7 +47,7 @@ func sort_tiles() -> void:
 
 
 func sort_descending_height(a, b):
-	if MountainTilesData.cell_height_matrix[a.x][a.y] < MountainTilesData.cell_height_matrix[b.x][b.y]:
+	if MountainTilesData.cell_height_matrix[a.x][a.y] > MountainTilesData.cell_height_matrix[b.x][b.y]:
 		return true
 	return false
 
