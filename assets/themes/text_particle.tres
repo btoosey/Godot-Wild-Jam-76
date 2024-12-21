@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dmnfoiousmjc4"]
+
+[ext_resource type="FontFile" uid="uid://day64fjih8xwx" path="res://assets/fonts/Analog Whispers FREE.ttf" id="1_l036w"]
+
+[resource]
+default_font = ExtResource("1_l036w")
+default_font_size = 18
